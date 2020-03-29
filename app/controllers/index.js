@@ -1,24 +1,29 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-    role: "All roles",
-    selectedFramework: "All frameworks",
+export default class extends Controller {
+    role = 'All roles'
+    roles = ['All roles', 'Full-stack', 'Front-end', 'Back-end']
+    selectedFramework = 'All frameworks'
+    frameworks = ['All frameworks', 'React', 'Laravel', 'Vue', 'Ember', 'Angular']
+    
+    @action
+    filterByRole(selected) {
+        this.set('role', selected)
+    }
 
-    actions: {
-        filterByRole(selected) {
-            this.set('role', selected)
-        },
-        filterByFramework(selected) {
-            this.set('selectedFramework', selected)
-        },
-        fire(dev) {
-            const text = `Fire developer ${dev.name} ${dev.lastName} ?`;
-            if(confirm(text)) {
-                const newDevelopers = this.get('developers').filter(item => item.id !== dev.id);
-                this.set('developers', newDevelopers);
-                window.localStorage.setItem('developers', JSON.stringify(newDevelopers));
-            }
+    @action
+    filterByFramework(selected) {
+        this.set('selectedFramework', selected)
+    }
 
+    @action
+    fire(dev) {
+        const text = `Fire developer ${dev.name} ${dev.lastName} ?`;
+        if(confirm(text)) {
+            const newDevelopers = this.get('developers').filter(item => item.id !== dev.id);
+            this.set('developers', newDevelopers);
+            window.localStorage.setItem('developers', JSON.stringify(newDevelopers));
         }
     }
-})
+}

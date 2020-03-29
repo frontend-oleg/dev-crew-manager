@@ -12,24 +12,24 @@
         </div>
         <div class="row  justify-content-end bottom">
             <div class="col-sm-3">
-                <select onchange={{action "filterByRole" value="target.value"}} class="form-control full-width">
-                <option disabled selected>Filter by role</option>
-                <option value="All roles">All roles</option>
-                <option value="Full-stack">Full-stack</option>
-                <option value="Front-end">Front-end</option>
-                <option value="Back-end">Back-end</option>
-            </select>
+                <PowerSelect
+                    @selected={{this.role}}
+                    @options={{this.roles}}
+                    @placeholder="Filter by role"
+                    @onChange={{fn (mut this.role)}} as |name|
+                >
+                    {{name}}
+                </PowerSelect>
             </div>
             <div class="col-sm-3">
-                <select onchange={{action "filterByFramework" value="target.value"}} class="form-control full-width">
-                <option disabled selected>Filter by frameworks</option>
-                <option value="All frameworks">All frameworks</option>
-                <option value="React">React</option>
-                <option value="Laravel">Laravel</option>
-                <option value="Vue">Vue</option>
-                <option value="Ember">Ember</option>
-                <option value="Angular">Angular</option>
-            </select>
+                <PowerSelect
+                    @selected={{this.selectedFramework}}
+                    @options={{this.frameworks}}
+                    @placeholder="Filter by frameworks"
+                    @onChange={{fn (mut this.selectedFramework)}} as |name|
+                >
+                    {{name}}
+                </PowerSelect>
             </div>
         </div>
         <table class="table table-striped table-hover">

@@ -27,8 +27,6 @@
                 >
                 {{name}}
             </PowerSelect>
-            {{log 'role' role}}
-            {{log 'name' name}}
         </div>
         <div class="form-group">
             <label for="Frameworks">Frameworks</label>
@@ -41,12 +39,10 @@
                 >
                 {{number}}
             </PowerSelectMultiple>
-            {{log 'developer frameworks' developer.frameworks}}
         </div>
         <div>
             <button {{action "save"}} class="btn btn-outline-success custom-button">Save</button>
             <button {{action "fire" developer}} class="btn btn-outline-danger float-right custom-button">Fire</button>
-
         </div>
     </form>
 </div>

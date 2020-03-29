@@ -14,7 +14,9 @@ export default class extends Controller {
   @action
   submit() {
     let developers;
-    if (!window.localStorage.getItem('developers') || (JSON.parse(window.localStorage.getItem('developers')) && !JSON.parse(window.localStorage.getItem('developers')).length)) {
+    const storageDevelopers = window.localStorage.getItem('developers');
+    // If there's NO developers ever set. Or value was set, but it's empty
+    if (!storageDevelopers || JSON.parse(storageDevelopers).length) {
         const dev = EmberObject.create({
             id: 1,
             image: 'assets/images/img1.png',
@@ -31,17 +33,7 @@ export default class extends Controller {
         developers = JSON.parse(window.localStorage.getItem('developers'));
         const maxId = Math.max.apply(Math, developers.map(function(dev) { return dev.id; }));
         const imgNumber = Math.floor(Math.random() * 3);
-        let image;
-        switch(imgNumber) {
-            case 0:
-                image = 'assets/images/img1.png';
-                break;
-            case 1:
-                image = 'assets/images/img2.png';
-                break;
-            default:
-                image = 'assets/images/img3.png';
-        }
+        const image = `assets/images/img${imgNumber + 1}.png`;
         const dev = EmberObject.create({
             id: maxId + 1,
             image: image,
