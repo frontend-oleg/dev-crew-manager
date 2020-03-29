@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="table-wrapper">
+        <div class="row align-items-center bottom">
+            <div class="col-sm-6 avatar-wrapper">
+                <img src="assets/images/img4.png" alt="Avatar" class="avatar avatar-header"><h2 class="inline">Developers</h2>
+            </div>
+            <div class="col-sm-6">
+                {{#link-to 'hire'}}
+                <button type="button" class="btn btn-outline-success float-right custom-button">Hire</button>
+                {{/link-to}}
+            </div>
+        </div>
+        <div class="row  justify-content-end bottom">
+            <div class="col-sm-3">
+                <select onchange={{action "filterByRole" value="target.value"}} class="form-control full-width">
+                <option disabled selected>Filter by role</option>
+                <option value="All roles">All roles</option>
+                <option value="Full-stack">Full-stack</option>
+                <option value="Front-end">Front-end</option>
+                <option value="Back-end">Back-end</option>
+            </select>
+            </div>
+            <div class="col-sm-3">
+                <select onchange={{action "filterByFramework" value="target.value"}} class="form-control full-width">
+                <option disabled selected>Filter by frameworks</option>
+                <option value="All frameworks">All frameworks</option>
+                <option value="React">React</option>
+                <option value="Laravel">Laravel</option>
+                <option value="Vue">Vue</option>
+                <option value="Ember">Ember</option>
+                <option value="Angular">Angular</option>
+            </select>
+            </div>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Role</th>
+                    <th>Frameworks</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each developers as |dev|}}
+                    {{#if (eq role "All roles")}}
+                        {{#if (is-dev-has-framework dev.frameworks selectedFramework)}}
+                        <tr>
+                            <td><img src={{dev.image}} alt="Avatar" class="avatar"></td>
+                            <td>{{dev.name}}</td>
+                            <td>{{dev.lastName}}</td>
+                            <td>{{dev.role}}</td>
+                            <td>
+                                {{#each dev.frameworks as |framework|}}
+                                    <span class="badge badge-light">{{framework}}</span>
+                                {{/each}}
+                            </td>
+                            <td>
+                                {{#link-to 'developer' dev.id}}
+                                    <button type="button" class="btn btn-link">Edit</button>
+                                {{/link-to}}
+                            </td>
+                            <td>
+                                <button {{action "fire" dev}} type="button" class="btn btn-outline-danger float-right custom-button">Fire</button>
+                            </td>
+                        </tr>
+                        {{/if}}
+                    {{else}}
+                        {{#if (eq role dev.role)}}
+                            {{#if (is-dev-has-framework dev.frameworks selectedFramework)}}
+                                <tr>
+                                    <td><img src={{dev.image}} alt="Avatar" class="avatar"></td>
+                                    <td>{{dev.name}}</td>
+                                    <td>{{dev.lastName}}</td>
+                                    <td>{{dev.role}}</td>
+                                    <td>
+                                        {{#each dev.frameworks as |framework|}}
+                                            <span class="badge badge-light">{{framework}}</span>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#link-to 'developer' dev}}
+                                            <button type="button" class="btn btn-link">Edit</button>
+                                        {{/link-to}}
+                                    </td>
+                                    <td>
+                                        <button {{action "fire" dev.id}} type="button" class="btn btn-outline-danger float-right custom-button">Fire</button>
+                                    </td>
+                                </tr>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{outlet}}

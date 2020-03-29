@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="table-wrapper">
+    <div class="col-sm-6 title-wrapper">
+        <img src="/assets/images/img6.jpg" alt="Avatar" class="avatar avatar-header">
+        <h2 class="inline">{{developer.name}} {{developer.lastName}}</h2>
+    </div>
+    {{#link-to 'index'}}
+    <p class="developers-link">Back to developers</p>
+    {{/link-to}}
+
+    <form>
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            {{input type="text" class="form-control" id="firstName" placeholder="First name" value=developer.name}}
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            {{input type="text" class="form-control" id="lastName" placeholder="Last name" value=developer.lastName}}
+        </div>
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <PowerSelect
+                @selected={{this.developer.role}}
+                @options={{this.roles}}
+                @placeholder="Role"
+                @onChange={{fn (mut this.developer.role)}} as |name|
+                >
+                {{name}}
+            </PowerSelect>
+            {{log 'role' role}}
+            {{log 'name' name}}
+        </div>
+        <div class="form-group">
+            <label for="Frameworks">Frameworks</label>
+            <PowerSelectMultiple
+                @options={{this.frameworks}}
+                @selected={{this.developer.frameworks}}
+                @searchEnabled={{true}}
+                @placeholder="Frameworks"
+                @onChange={{fn (mut this.developer.frameworks)}} as |number|
+                >
+                {{number}}
+            </PowerSelectMultiple>
+            {{log 'developer frameworks' developer.frameworks}}
+        </div>
+        <div>
+            <button {{action "save"}} class="btn btn-outline-success custom-button">Save</button>
+            <button {{action "fire" developer}} class="btn btn-outline-danger float-right custom-button">Fire</button>
+
+        </div>
+    </form>
+</div>
+</div>
+{{outlet}}

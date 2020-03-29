@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="table-wrapper">
+    <div class="col-sm-6 title-wrapper">
+        <img src="assets/images/img5.png" alt="Avatar" class="avatar avatar-header">
+        <h2 class="inline">Hire</h2>
+    </div>
+    {{#link-to 'index'}}
+    <p class="developers-link">Back to developers</p>
+    {{/link-to}}
+
+    <form>
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            {{input type="text" class="form-control" id="firstName" placeholder="First name" value=name}}
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            {{input type="text" class="form-control" id="lastName" placeholder="Last name" value=lastName}}
+        </div>
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <PowerSelect
+                @selected={{this.role}}
+                @options={{this.roles}}
+                @placeholder="Role"
+                @onChange={{fn (mut this.role)}} as |name|
+                >
+                {{name}}
+            </PowerSelect>
+            {{log 'role' role}}
+            {{log 'name' name}}
+        </div>
+        <div class="form-group">
+            <label for="Frameworks">Frameworks</label>
+            <PowerSelectMultiple
+                @options={{this.frameworks}}
+                @selected={{this.selectedFrameworks}}
+                @searchEnabled={{true}}
+                @placeholder="Frameworks"
+                @onChange={{fn (mut this.selectedFrameworks)}} as |number|
+                >
+                {{number}}
+            </PowerSelectMultiple>
+            {{log 'selected frameworks' selectedFrameworks}}
+        </div>
+        <button {{action "submit"}} class="btn btn-outline-success custom-button">Hire</button>
+    </form>
+</div>
+</div>
+{{outlet}}
