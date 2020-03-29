@@ -16,7 +16,7 @@ export default class extends Controller {
     let developers;
     const storageDevelopers = window.localStorage.getItem('developers');
     // If there's NO developers ever set. Or value was set, but it's empty
-    if (!storageDevelopers || JSON.parse(storageDevelopers).length) {
+    if (!storageDevelopers || !JSON.parse(storageDevelopers).length) {
         const dev = EmberObject.create({
             id: 1,
             image: 'assets/images/img1.png',
